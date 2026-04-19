@@ -10,10 +10,6 @@ This project was designed as an academic exercise in “Database Engineering” 
 
 ---
 
-> 📥 **[PROFESSOR / INSTRUCTOR NOTE]:** 
-> To read the full Academic Project Report and ER Diagram, please **[CLICK HERE TO DOWNLOAD THE PDF REPORT (technical_report.pdf)](https://github.com/firatkatt/BIST-Algo-Analyzer/raw/main/docs/technical_report.pdf)**. 
-> *(Note: GitHub's built-in PDF preview may display 'Invalid PDF' due to embedded ER diagrams, but the downloaded file is perfectly intact).*
-
 ## 🚀 Project Outputs and Features
 
 *   **100 Companies, Big Data Set:** A “Big Data” dataset of approximately **25,000 rows** covering one year of historical financial simulations and news feeds for 98 companies within the BIST100.
