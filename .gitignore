@@ -1,0 +1,11 @@
+# Python
+env/
+venv/
+__pycache__/
+*.pyc
+
+# Mac OS
+.DS_Store
+
+# Kullanıcı İstediği İçin Hariç Tutulanlar (Sadece Veritabanı İhtiyacı)
+frontend/

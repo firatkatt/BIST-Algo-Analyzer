@@ -1,0 +1,13 @@
+Word_ID,Word,Sentiment_Score
+1,büyüme,1.0
+2,temettü,1.0
+3,kâr,1.0
+4,artış,0.5
+5,yatırım,1.0
+6,rekor,1.5
+7,düşüş,-1.0
+8,zarar,-1.0
+9,ceza,-1.0
+10,dava,-1.5
+11,küçülme,-1.0
+12,istifa,-0.5
