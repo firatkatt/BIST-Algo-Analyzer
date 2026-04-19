@@ -10,7 +10,7 @@ This project was designed as an academic exercise in “Database Engineering” 
 
 ---
 
-## 🚀 Project Outputs and Features
+## Project Outputs and Features
 
 *   **100 Companies, Big Data Set:** A “Big Data” dataset of approximately **25,000 rows** covering one year of historical financial simulations and news feeds for 98 companies within the BIST100.
 *   **Advanced SQL (Category 3):** An 8-table schema built with strict normalization rules (within the bounds of 1NF, 2NF, and 3NF);
@@ -21,7 +21,7 @@ This project was designed as an academic exercise in “Database Engineering” 
 
 ---
 
-## 📂 Folder Structure
+## Folder Structure
 
 ```text
 ├── data/
@@ -41,7 +41,7 @@ This project was designed as an academic exercise in “Database Engineering” 
 
 ---
 
-## 💻 How to Run It?
+## How to Run It?
 
 ### 1. Setting Up the Database (DB Manager)
 1. Create an empty database in your preferred DBMS interface (DBeaver, pgAdmin, SQL Server Management Studio, etc.) and run the `sql/schema.sql` file to set up the architecture of the 8 related tables.
