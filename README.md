@@ -1,3 +1,12 @@
+### Team Members
+
+1. **Caner Erenler**
+2. **Fırat Kat**
+3. **Mina Sultan Çelik**
+4. **Abdurrahman Baykan**
+
+---
+
 # BIST-Algo-Analyzer: Financial Data and News Analysis System
 
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
