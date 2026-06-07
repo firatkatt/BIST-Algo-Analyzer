@@ -1,10 +1,24 @@
 # Python
 env/
 venv/
+.venv/
 __pycache__/
 *.pyc
+.pytest_cache/
+.mypy_cache/
 
-# Mac OS
+# Node / frontend
+node_modules/
+frontend/node_modules/
+dist/
+build/
+frontend/dist/
+
+# OS / editor
 .DS_Store
+.idea/
+.vscode/
 
-# frontend klasörü artık projeye dahil ediliyor.
+# Secrets
+.env
+.env.*
