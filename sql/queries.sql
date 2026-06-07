@@ -335,3 +335,15 @@ SELECT *
 FROM Sektor_Risk_Ozeti_View
 ORDER BY Negative_Word_Mentions DESC
 LIMIT 5;
+
+-- ----------------------------------------------------------------------------
+-- VIEW TEST QUERY 3
+-- Son haber sayısı en yüksek 5 fırsat hissesi
+-- ----------------------------------------------------------------------------
+SELECT
+    Company_Code,
+    Company_Name,
+    Total_News_Count
+FROM Firsat_Hisseleri_View
+ORDER BY Total_News_Count DESC
+LIMIT 5;
