@@ -316,3 +316,22 @@ ORDER BY (lp.Close_Price - (
       AND c2.Sector_ID = c.Sector_ID
 )) DESC,
 lp.Close_Price DESC;
+
+
+-- ----------------------------------------------------------------------------
+-- VIEW TEST QUERY 1
+-- En yüksek pozitif duyarlılığa sahip ilk 5 fırsat hissesi
+-- ----------------------------------------------------------------------------
+SELECT *
+FROM Firsat_Hisseleri_View
+ORDER BY Total_Daily_Sentiment_Score DESC
+LIMIT 5;
+
+-- ----------------------------------------------------------------------------
+-- VIEW TEST QUERY 2
+-- Negatif haber yoğunluğu en yüksek ilk 5 sektör
+-- ----------------------------------------------------------------------------
+SELECT *
+FROM Sektor_Risk_Ozeti_View
+ORDER BY Negative_Word_Mentions DESC
+LIMIT 5;
