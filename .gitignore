@@ -7,5 +7,4 @@ __pycache__/
 # Mac OS
 .DS_Store
 
-# Kullanıcı İstediği İçin Hariç Tutulanlar (Sadece Veritabanı İhtiyacı)
-frontend/
+# frontend klasörü artık projeye dahil ediliyor.
