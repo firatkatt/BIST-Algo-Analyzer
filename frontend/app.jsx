@@ -57,6 +57,11 @@ function App() {
     }, [prices]);
 
     const getNewsKapUrl = (newsItem) => {
+        const exactNewsUrl = typeof newsItem.News_URL === 'string' ? newsItem.News_URL.trim() : '';
+        if (exactNewsUrl) {
+            return exactNewsUrl;
+        }
+
         const ticker = TICKERS[(Number(newsItem.Company_ID) || 1) - 1] || 'HISSE';
         return kapDisclosureUrls[ticker] || `https://kap.org.tr/tr/search/${encodeURIComponent(ticker)}/1`;
     };

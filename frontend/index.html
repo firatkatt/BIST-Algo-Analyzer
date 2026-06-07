@@ -128,6 +128,11 @@
             }, [prices]);
 
             const getKapCompanyUrl = (newsItem) => {
+                const exactNewsUrl = typeof newsItem.News_URL === 'string' ? newsItem.News_URL.trim() : '';
+                if (exactNewsUrl) {
+                    return exactNewsUrl;
+                }
+
                 const ticker = TICKERS[(Number(newsItem.Company_ID) || 1) - 1] || 'HISSE';
                 const mappedUrl = kapDisclosureUrls[ticker];
                 if (typeof mappedUrl === 'string' && mappedUrl.length > 0) {
@@ -291,13 +296,13 @@
                     <p className="text-sm text-slate-300 leading-relaxed font-normal group-hover:text-slate-100 transition-colors">
                         {news.News_Content || news.Title}
                     </p>
-                    <div className="mt-4 pt-3 border-t border-slate-700/50 flex justify-end">
-                        <a href={kapUrl || news.News_URL} target="_blank" rel="noopener noreferrer" className="text-blue-400/80 text-xs hover:text-blue-400 hover:underline flex items-center font-medium">
-                            KAP Açıklaması
-                            <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                        </a>
-                    </div>
-                </div>
+            <div className="mt-4 pt-3 border-t border-slate-700/50 flex justify-end">
+                <a href={kapUrl || news.News_URL} target="_blank" rel="noopener noreferrer" className="text-blue-400/80 text-xs hover:text-blue-400 hover:underline flex items-center font-medium">
+                    KAP Açıklaması
+                    <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+        </div>
             );
         }
 
