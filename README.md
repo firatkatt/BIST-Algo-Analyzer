@@ -122,14 +122,3 @@ Repo içinde ayrıca `data/` klasöründe daha büyük CSV veri setleri de bulun
 - `Daily_Prices` tablosunda OHLC mantığını koruyan `CHECK` kısıtları vardır.
 - `News_Sentiments.Match_Count` pozitif değer zorunluluğu ile veri kalitesi korunur.
 
----
-
-## Video Sunumu Icin
-
-Video akışı için `docs/video_script.md` dosyasını kullanabilirsiniz. Bu dosya, backend ağırlıklı 5-10 dakikalık sunumda sırayla ne anlatmanız gerektiğini dakika bazında listeler.
-
----
-
-## Kısa Özet
-
-Bu proje, finansal fiyat verisi ile metin tabanlı haber duyarlılığını aynı ilişkisel model içinde birleştirir. Final sürümünde amaç yalnızca veri saklamak değil, anlamlı SQL analizleri üretmek ve bunu temiz, test edilebilir bir yapıyla sunmaktır.
