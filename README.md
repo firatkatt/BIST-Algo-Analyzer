@@ -1,3 +1,5 @@
+# BIST-Algo-Analyzer
+
 ### Team Members
 
 1. **Caner Erenler**
@@ -5,65 +7,129 @@
 3. **Mina Sultan Çelik**
 4. **Abdurrahman Baykan**
 
----
+PostgreSQL tabanlı bu proje, Borsa İstanbul şirketlerinin günlük fiyat hareketleri ile KAP haberlerini aynı veritabanında birleştirerek analiz etmeyi amaçlayan bir karar destek sistemidir.
 
-# BIST-Algo-Analyzer: Financial Data and News Analysis System
-
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![SQL](https://img.shields.io/badge/SQL-Advanced-red?style=for-the-badge)
-
-BIST-Algo-Analyzer is a comprehensive **relational database and decision support system** that integrates periodic price movements (OHLCV) of companies listed on the **Borsa İstanbul (BIST 100)** with sentiment analysis scores derived from announcements on the Public Disclosure Platform (KAP) into a single ecosystem. 
-
-This project was designed as an academic exercise in “Database Engineering” and successfully models a large-scale financial data warehouse.
-
----
-
-## Project Outputs and Features
-
-*   **100 Companies, Big Data Set:** A “Big Data” dataset of approximately **25,000 rows** covering one year of historical financial simulations and news feeds for 98 companies within the BIST100.
-*   **Advanced SQL (Category 3):** An 8-table schema built with strict normalization rules (within the bounds of 1NF, 2NF, and 3NF);
-    *   **Window Functions** (50-Day Simple Moving Average / SMA-50 Calculations)
-    *   **CTEs & Views** (Views that simplify interlinked complex financial algorithms)
-    *   **Complex JOINs & Aggregations** (Sector-specific NLP sentiment analysis) were utilized.
-*   **Python Data Generation Bot:** A Python data generation architecture that provides real-time data via `yfinance` and features an automatic *Fallback (Realistic Synthetic Algorithm Generation)* infrastructure to address potential API or limit issues.
+Projenin final sürümünde:
+- normalize edilmiş çekirdek şema
+- indeksler ve veri bütünlüğü kısıtları
+- 2 anlamlı view
+- 1 stored procedure
+- 1 trigger
+- CTE, window function, subquery ve aggregate içeren ileri SQL sorguları
+- çalıştırılabilir test verisi
+bulunur.
 
 ---
 
-## Folder Structure
+## Proje İçeriği
 
-```text
-├── data/
-│   ├── Daily_Prices.csv           # Over 25,000 rows of OHLCV price history
-│   ├── KAP_News.csv               # Corporate KAP news announcement articles
-│   ├── News_Sentiments.csv        # Algorithmic NLP M:N mapping table
-│   └── Sentiment_Dictionary.csv   # Sentiment dictionary (Scoring terms)
-├── docs/
-│   ├── technical_report.md        # Database ERD diagram and academic Problem Statement Report
-│   └── technical_report.pdf       # Exported Database PDF Report
-├── scripts/
-│   └── data_builder.py            # Yfinance price fetching and OHLCV news/data bot
-└── sql/
-    ├── queries.sql                # Advanced analytical queries (CTEs, SMA, Window Functions)
-    └── schema.sql                 # Complete 3NF SQL Database Schema with 8 Tables
-```
+- `sql/schema.sql`: Final veritabanı şeması
+- `sql/seed_data.sql`: Tüm tabloları dolduran örnek veri seti
+- `sql/queries.sql`: View, procedure, trigger ve demo sorgular
+- `docs/technical_report.md`: Final teknik rapor
+- `docs/video_script.md`: 5-10 dakikalık video sunum akışı
+- `scripts/data_builder.py`: Daha büyük CSV veri seti üreticisi
 
 ---
 
-## How to Run It?
+## Veri Modeli
 
-### 1. Setting Up the Database (DB Manager)
-1. Create an empty database in your preferred DBMS interface (DBeaver, pgAdmin, SQL Server Management Studio, etc.) and run the `sql/schema.sql` file to set up the architecture of the 8 related tables.
-2. Use your software’s “Import Data” feature to load the CSV files in the `data/` folder into the corresponding tables column-by-column, following the relationship tree.
-3. Run the demonstration-focused queries in `sql/queries.sql` to observe the data results of the investment algorithms.
+Çekirdek tasarım 8 tablo üzerine kuruludur:
 
-### 2. (Optional) Regenerating Data
-If you want to test the system, refresh the synthetic data, or run the bot again:
-```bash
-source env/bin/activate
-python scripts/data_builder.py
-```
-*(The script will compile without issues and regenerate all your large CSV files in the data folder within seconds).*
+- `Sectors`
+- `Companies`
+- `Market_Indices`
+- `Company_Indices`
+- `Daily_Prices`
+- `KAP_News`
+- `Sentiment_Dictionary`
+- `News_Sentiments`
+
+Bu yapı;
+- 1:N ilişkiler,
+- M:N ara tablo ilişkileri,
+- PK/FK bütünlüğü,
+- performans indeksleri
+ile desteklenir.
+
+`Base_Sentiment_Score` alanı, analitik amaçlı bir cache olarak tutulur ve `News_Sentiments` tablosundaki değişikliklere trigger ile otomatik senkronlanır.
 
 ---
-*This project is structured according to advanced database application design standards focused on academic use.*
+
+## Final SQL Ozellikleri
+
+### View'lar
+- `Firsat_Hisseleri_View`
+  - Pozitif haber akışı olan günlerde şirket fiyatı, hacim ve duygu skorunu tek tabloda toplar.
+- `Sektor_Risk_Ozeti_View`
+  - Sektör bazında haber yoğunluğu, ortalama kapanış fiyatı ve negatif kelime sayısını özetler.
+
+### Stored Procedure
+- `sp_recalculate_news_sentiment(p_news_id)`
+  - Tek bir haberin veya tüm haberlerin sentiment skorunu yeniden hesaplar.
+  - Bulk yükleme sonrası veya manuel veri değişikliğinde kullanılabilir.
+
+### Trigger
+- `trg_news_sentiments_refresh_score`
+  - `News_Sentiments` tablosuna insert/update/delete olduğunda ilgili `KAP_News.Base_Sentiment_Score` alanını otomatik günceller.
+
+### Ileri SQL Sorgulari
+- View üzerinden fırsat hisseleri analizi
+- CTE + window function ile SMA-50 analizi
+- Correlated subquery ile sektör ortalamasına göre karşılaştırma
+
+---
+
+## Veri Seti
+
+`sql/seed_data.sql` içinde şu örnek veriler hazırlanmıştır:
+
+- 8 sektör
+- 5 endeks
+- 10 şirket
+- 12 duygu sözlüğü terimi
+- 80+ işlem günü kapsayan günlük fiyat verisi
+- 12 KAP haberi
+- 36 haber-kelime eşleştirmesi
+
+Bu veri seti:
+- SMA-50 sorgusunun çalışması,
+- sector summary view'ının anlamlı sonuç dönmesi,
+- trigger ve procedure testleri
+için yeterlidir.
+
+Repo içinde ayrıca `data/` klasöründe daha büyük CSV veri setleri de bulunur. İsterseniz bu CSV'leri ayrı bir import akışıyla da kullanabilirsiniz.
+
+---
+
+## Kurulum Sırası
+
+1. Boş bir PostgreSQL veritabanı oluşturun.
+2. `sql/schema.sql` dosyasını çalıştırın.
+3. `sql/seed_data.sql` dosyasını çalıştırın.
+4. `sql/queries.sql` dosyasını çalıştırın.
+5. Örnek sonuçları görmek için şu sorguları çalıştırın:
+   - `SELECT * FROM Firsat_Hisseleri_View;`
+   - `SELECT * FROM Sektor_Risk_Ozeti_View;`
+   - `CALL sp_recalculate_news_sentiment(NULL);`
+
+---
+
+## Teknik Notlar
+
+- Şema PostgreSQL uyumludur.
+- Tarih bazlı analizler için `Daily_Prices(Company_ID, Price_Date)` ve `KAP_News((News_Date::date))` indeksleri eklendi.
+- `Daily_Prices` tablosunda OHLC mantığını koruyan `CHECK` kısıtları vardır.
+- `News_Sentiments.Match_Count` pozitif değer zorunluluğu ile veri kalitesi korunur.
+
+---
+
+## Video Sunumu Icin
+
+Video akışı için `docs/video_script.md` dosyasını kullanabilirsiniz. Bu dosya, backend ağırlıklı 5-10 dakikalık sunumda sırayla ne anlatmanız gerektiğini dakika bazında listeler.
+
+---
+
+## Kısa Özet
+
+Bu proje, finansal fiyat verisi ile metin tabanlı haber duyarlılığını aynı ilişkisel model içinde birleştirir. Final sürümünde amaç yalnızca veri saklamak değil, anlamlı SQL analizleri üretmek ve bunu temiz, test edilebilir bir yapıyla sunmaktır.
