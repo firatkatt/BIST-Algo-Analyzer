@@ -7,6 +7,7 @@
 3. **Mina Sultan Çelik**
 4. **Abdurrahman Baykan**
 
+Github Link https://github.com/firatkatt/BIST-Algo-Analyzer
 Video link https://drive.google.com/file/d/1dat0VaryJ-QR-v28ymTVaPi21C7e91_I/view?usp=sharing
 
 PostgreSQL tabanlı bu proje, Borsa İstanbul şirketlerinin günlük fiyat hareketleri ile KAP haberlerini aynı veritabanında birleştirerek analiz etmeyi amaçlayan bir karar destek sistemidir.
